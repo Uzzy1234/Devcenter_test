@@ -1,7 +1,7 @@
 'use strict'
 
-const { test, trait } = use('Test/Suite')('User')
-const User = use('App/Models/User')
+const { test, trait } = use('Test/Suite')('Cardetail')
+const Car = use('App/Models/Cardetail')
 
 trait('Test/ApiClient')
 trait('Auth/Client')
@@ -21,7 +21,7 @@ test('get all cars', async ({ client }) => {
 test('get a car by Id', async ({ client }) => {
 
   const response = await client
-    .get('v2/users/1')
+    .get('v2/cars/1')
     .end()
   response.assertStatus(200) //show cars by id
 
@@ -30,7 +30,7 @@ test('get a car by Id', async ({ client }) => {
 test('delete a car by Id', async ({ client }) => {
 
   const response = await client
-    .delete('v2/users/1')
+    .delete('v2/cars/1')
     .end()
     
   response.assertStatus(200) //show car

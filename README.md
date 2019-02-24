@@ -35,14 +35,19 @@ Windows:
 xcopy .env.example .env
 ```
 
-Update the variables to match your local configurations.
+> If you already have postgres installed database setup the `DB_DATABASE` variable in your `.env` file and move to the migration step.
 
-> If you have the previous bloverse postgres database setup update the `DB_DATABASE` variable in your `.env` file and skip the migration step.
+> If you DO NOT already have postgres installed, please install postgres, to be able to work with this project.
+
 
 - Run the following command to run startup migrations.
 
 ```bash
 adonis migration:run
+```
+- Run the following command to seed the Developer Categories and Car Types data to the database.
+```bash
+adonis seed
 ```
 
 ### Testing

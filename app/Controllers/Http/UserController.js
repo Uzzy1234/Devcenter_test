@@ -113,20 +113,25 @@ class UserController {
     })
   }
 
-  async update({ params, request, response }) {
+  async update({ params, request, response, auth }) {
+    const authUser = await auth.getUser()
+    console.log(authUser.id)
 
     try {
       const user = await User.findOrFail(params.id)
+      if (authUser.id == user.id) {
 
       const {
         firstName = user.first_name,
         lastName = user.last_name,
         gender = user.gender,
+        email = user.email
       } = request.all()
 
       user.first_name = firstName
       user.last_name = lastName
       user.gender = gender
+      user.email = email
       await user.save()
       return response.status(200).json({
         status: "success",
@@ -134,6 +139,12 @@ class UserController {
           user
         }
       })
+    } else {
+      return response.status(403).json({
+        status: "fail",
+        message: "You can not perform this operation"
+      })
+    }
     } catch (err) {
 
       return response.status(400).json({

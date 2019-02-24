@@ -18,6 +18,7 @@ const Route = use('Route')
 
 Route.group(() => {
   Route.resource('users', 'UserController').apiOnly()
-}).prefix('v2')
+  Route.post('auth/login', 'AuthController.login')
+}).prefix('v1')
 
 Route.on('/').render('welcome')

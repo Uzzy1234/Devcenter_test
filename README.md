@@ -1,4 +1,4 @@
-# Bloverse API
+# Devcenter Test API
 
 This is a Node JS (Adonis) implementation of the Devceneter test.
 

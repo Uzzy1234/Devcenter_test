@@ -16,4 +16,8 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
+Route.group(() => {
+  Route.resource('users', 'UserController').apiOnly()
+}).prefix('v2')
+
 Route.on('/').render('welcome')

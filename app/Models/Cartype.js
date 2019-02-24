@@ -8,7 +8,7 @@ class Cartype extends Model {
     return ['created_at', 'updated_at']
   }
   cardetails() {
-    return this.belongsToMany('App/Models/Cardetail')
+    return this.belongsToMany('App/Models/Cardetail').pivotTable('cartype_cardetails')
   }
 }
 

@@ -5,7 +5,7 @@ const Model = use('Model')
 
 class Cardetail extends Model {
   cartypes() {
-    return this.belongsToMany('App/Models/Cartype')
+    return this.belongsToMany('App/Models/Cartype').pivotTable('cartype_cardetails')
   }
 }
 

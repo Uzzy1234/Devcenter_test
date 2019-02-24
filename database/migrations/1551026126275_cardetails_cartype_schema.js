@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class CardetailsCartypeSchema extends Schema {
   up () {
-    this.create('cartype_cardetail', (table) => {
+    this.create('cartype_cardetails', (table) => {
       table.increments()
       table.integer('cardetail_id').unsigned().notNullable()
         .references('id').inTable('cardetails')
@@ -17,7 +17,7 @@ class CardetailsCartypeSchema extends Schema {
   }
 
   down () {
-    this.drop('cartype_cardetail')
+    this.drop('cartype_cardetails')
   }
 }
 

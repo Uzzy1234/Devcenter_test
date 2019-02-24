@@ -98,6 +98,48 @@ class CarController {
       }
     })
   }
+
+  async update({ params, request, response, auth }) {
+    const authuser = auth.getUser()
+
+    try {
+      const car = await Car.findOrFail(params.id)
+      if (authuser) {
+
+        const {
+          driverName = car.car_driver,
+          carName = car.car_name,
+          carColour = car.car_colour,
+          driverGender = car.driver_gender
+        } = request.all()
+
+        car.car_driver = driverName
+        car.car_name = carName
+        car.car_colour = carColour
+        car.driver_gender = driverGender
+        await car.save()
+        return response.status(200).json({
+          status: "success",
+          data: {
+            car
+          }
+        })
+      } else {
+        return response.status(403).json({
+          status: "fail",
+          message: "You need to login to do this"
+        })
+      }
+    } catch (err) {
+
+      return response.status(400).json({
+        status: "fail",
+        data: {
+          error: "Car does not exist"
+        }
+      })
+    }
+  }
 }
 
 module.exports = CarController

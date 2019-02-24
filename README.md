@@ -58,5 +58,8 @@ adonis test
 ```
 
 ### Documentation
+- Please note that the routes for developer(users) endpoints, are prefixed with 'v1', while the routes for Fleet(carsdetails)   endpoints, are prefixed with 'v2'.
+
+- To update a particular car's details(by Id), or update a developer details, you have to be authenticated (- `/v1/auth/login` to get token).
 
 - [API Documentation](https://github.com/Uzzy1234/Devcenter_test/blob/master/v1API.md)

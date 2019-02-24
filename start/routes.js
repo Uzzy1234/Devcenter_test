@@ -21,4 +21,9 @@ Route.group(() => {
   Route.post('auth/login', 'AuthController.login')
 }).prefix('v1')
 
+
+Route.group(() => {
+  Route.resource('cars', 'CarController').apiOnly()
+}).prefix('v2')
+
 Route.on('/').render('welcome')

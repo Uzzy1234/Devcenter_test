@@ -86,6 +86,18 @@ class CarController {
 
     }
   }
+
+  async show({ params, response }) {
+
+    const car = await Car.find(params.id)
+    car.cartypes = await car.cartypes().fetch()
+    return response.status(200).json({
+      status: "success",
+      data: {
+        car
+      }
+    })
+  }
 }
 
 module.exports = CarController

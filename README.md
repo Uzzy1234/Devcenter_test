@@ -59,4 +59,4 @@ adonis test
 
 ### Documentation
 
-- [API Documentation](https://github.com/uzzy1234/Devcenter_test/v1API.md)
+- [API Documentation](https://github.com/Uzzy1234/Devcenter_test/blob/master/v1API.md)

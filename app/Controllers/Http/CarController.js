@@ -88,25 +88,25 @@ class CarController {
   }
 
   async show({ params, response }) {
-    try{
-    const car = await Car.find(params.id)
-    car.cartypes = await car.cartypes().fetch()
-    return response.status(200).json({
-      status: "success",
-      data: {
-        car
-      }
-    })
-  } catch (err) {
+    try {
+      const car = await Car.find(params.id)
+      car.cartypes = await car.cartypes().fetch()
+      return response.status(200).json({
+        status: "success",
+        data: {
+          car
+        }
+      })
+    } catch (err) {
 
-    return response.status(400).json({
-      status: "fail",
-      data: {
-        error: "Car does not exist"
-      }
-    })
+      return response.status(404).json({
+        status: "fail",
+        data: {
+          error: "Car does not exist"
+        }
+      })
+    }
   }
-}
 
 
   async update({ params, request, response, auth }) {
@@ -142,7 +142,7 @@ class CarController {
       }
     } catch (err) {
 
-      return response.status(400).json({
+      return response.status(404).json({
         status: "fail",
         data: {
           error: "Car does not exist"
@@ -152,16 +152,26 @@ class CarController {
   }
 
   async destroy({ params, response }) {
-    const car = await Car.find(params.id)
-    car.cartypes = await car.cartypes().fetch()
-    await car.cartypes().detach()
-    await car.delete()
-    return response.status(200).json({
-      status: "success",
-      data: {
-        car
-      }
-    })
+    try {
+      const car = await Car.find(params.id)
+      car.cartypes = await car.cartypes().fetch()
+      await car.cartypes().detach()
+      await car.delete()
+      return response.status(200).json({
+        status: "success",
+        data: {
+          car
+        }
+      })
+    } catch (err) {
+
+      return response.status(404).json({
+        status: "fail",
+        data: {
+          error: "Car does not exist"
+        }
+      })
+    }
   }
 }
 

@@ -102,15 +102,24 @@ class UserController {
   }
 
   async show({ params, response }) {
+    try {
+      const user = await User.find(params.id)
+      user.roles = await user.roles().fetch()
+      return response.status(200).json({
+        status: "success",
+        data: {
+          user
+        }
+      })
 
-    const user = await User.find(params.id)
-    user.roles = await user.roles().fetch()
-    return response.status(200).json({
-      status: "success",
-      data: {
-        user
-      }
-    })
+    } catch (err) {
+      return response.status(404).json({
+        status: "fail",
+        data: {
+          error: "User does not exist"
+        }
+      })
+    }
   }
 
   async update({ params, request, response, auth }) {
@@ -121,33 +130,33 @@ class UserController {
       const user = await User.findOrFail(params.id)
       if (authUser.id == user.id) {
 
-      const {
-        firstName = user.first_name,
-        lastName = user.last_name,
-        gender = user.gender,
-        email = user.email
-      } = request.all()
+        const {
+          firstName = user.first_name,
+          lastName = user.last_name,
+          gender = user.gender,
+          email = user.email
+        } = request.all()
 
-      user.first_name = firstName
-      user.last_name = lastName
-      user.gender = gender
-      user.email = email
-      await user.save()
-      return response.status(200).json({
-        status: "success",
-        data: {
-          user
-        }
-      })
-    } else {
-      return response.status(403).json({
-        status: "fail",
-        message: "You can not perform this operation"
-      })
-    }
+        user.first_name = firstName
+        user.last_name = lastName
+        user.gender = gender
+        user.email = email
+        await user.save()
+        return response.status(200).json({
+          status: "success",
+          data: {
+            user
+          }
+        })
+      } else {
+        return response.status(403).json({
+          status: "fail",
+          message: "You can not perform this operation"
+        })
+      }
     } catch (err) {
 
-      return response.status(400).json({
+      return response.status(404).json({
         status: "fail",
         data: {
           error: "User does not exist"
@@ -157,16 +166,26 @@ class UserController {
   }
 
   async destroy({ params, response }) {
-    const user = await User.find(params.id)
-    user.roles = await user.roles().fetch()
-    await user.roles().detach()
-    await user.delete()
-    return response.status(200).json({
-      status: "success",
-      data: {
-        user
-      }
-    })
+    try {
+      const user = await User.find(params.id)
+      user.roles = await user.roles().fetch()
+      await user.roles().detach()
+      await user.delete()
+      return response.status(200).json({
+        status: "success",
+        data: {
+          user
+        }
+      })
+    } catch (err) {
+      return response.status(404).json({
+        status: "fail",
+        data: {
+          error: "User does not exist"
+        }
+      })
+    }
+
   }
 
 }

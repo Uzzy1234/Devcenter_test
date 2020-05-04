@@ -7,7 +7,7 @@ This is a Node JS (Adonis) implementation of the Devceneter test.
 - Clone the repository
 
 ```bash
-git clone https://github.com/uzzy1234/Devcenter_test
+git clone https://github.com/uzochukwuonuegbu/Devcenter_test
 ```
 
 - Install the Adonis cli globally
